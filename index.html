@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El reencuentro — de verdad</title>
+<style>
+  :root{--ink:#4b4642;--soft:#8a817a;--line:#ddd5cf;--card:#fbf8f5}
+  *{box-sizing:border-box}
+  body{
+    margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(145deg,#f8f3ef,#eee6df);
+    color:var(--ink);font-family:Georgia,"Times New Roman",serif;
+  }
+  main{width:min(720px,92vw);text-align:center;padding:42px 18px}
+  .stars{font-size:18px;letter-spacing:9px;color:var(--soft);margin-bottom:22px}
+  .aa{font-family:Arial,sans-serif;font-weight:700;letter-spacing:.35em;font-size:13px;color:var(--soft);margin-bottom:12px}
+  h1{font:700 clamp(19px,5vw,28px)/1.2 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;margin:0}
+  .date{font:13px Arial,sans-serif;letter-spacing:.18em;color:var(--soft);margin-top:11px}
+  .since{font-style:italic;font-size:19px;margin:30px 0 12px}
+  .label{font:11px Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 25px}
+  .unit{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:18px;padding:18px 7px}
+  .num{font:700 clamp(28px,8vw,48px)/1 Arial,sans-serif;font-variant-numeric:tabular-nums}
+  .unit span{display:block;font:10px Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--soft);margin-top:8px}
+  .footer{font-style:italic;font-size:17px;color:#6d6560;line-height:1.6}
+  .heart{font-size:21px;margin-top:10px}
+  @media(max-width:430px){main{padding:32px 8px}.grid{gap:6px}.unit{padding:15px 3px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="stars">✦ · ✧ · ✦</div>
+  <div class="aa">A A</div>
+  <h1>El reencuentro — de verdad</h1>
+  <div class="date">16 · SEPTIEMBRE · 2026 · 21:10</div>
+  <div class="since">30 años después…</div>
+  <div class="label">Nuestra ERA empieza en…</div>
+  <section class="grid" aria-live="polite">
+    <div class="unit"><b class="num" id="days">—</b><span>días</span></div>
+    <div class="unit"><b class="num" id="hours">—</b><span>horas</span></div>
+    <div class="unit"><b class="num" id="minutes">—</b><span>minutos</span></div>
+    <div class="unit"><b class="num" id="seconds">—</b><span>segundos</span></div>
+  </section>
+  <div class="footer" id="footer">Hasta volver a encontrarnos. ❤️</div>
+  <div class="heart">✦</div>
+</main>
+<script>
+const target = new Date("2026-09-16T21:10:00+02:00").getTime();
+function tick(){
+  let diff = target - Date.now();
+  if(diff <= 0){
+    document.getElementById("days").textContent="0";
+    document.getElementById("hours").textContent="0";
+    document.getElementById("minutes").textContent="0";
+    document.getElementById("seconds").textContent="0";
+    document.getElementById("footer").innerHTML="YA ESTÁ. ❤️<br>Nuestra ERA empieza aquí.";
+    return;
+  }
+  const total=Math.floor(diff/1000);
+  document.getElementById("days").textContent=Math.floor(total/86400);
+  document.getElementById("hours").textContent=Math.floor(total%86400/3600);
+  document.getElementById("minutes").textContent=Math.floor(total%3600/60);
+  document.getElementById("seconds").textContent=String(total%60).padStart(2,"0");
+  setTimeout(tick,250);
+}
+tick();
+</script>
+</body>
+</html>
