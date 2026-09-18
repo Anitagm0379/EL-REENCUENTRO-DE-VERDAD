@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo que sigue — de verdad</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #f7f3ed;
+    color: #4d4a46;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .page {
+    width: min(92vw, 720px);
+    padding: 42px 18px 56px;
+  }
+
+  .stars {
+    font-size: 25px;
+    letter-spacing: 18px;
+    color: #8c8882;
+    margin-bottom: 38px;
+  }
+
+  .aa {
+    font-size: 22px;
+    letter-spacing: 15px;
+    margin-bottom: 22px;
+    color: #85817b;
+  }
+
+  h1 {
+    margin: 0 auto;
+    max-width: 650px;
+    font-size: clamp(27px, 6vw, 42px);
+    line-height: 1.12;
+    letter-spacing: 3px;
+    font-weight: 600;
+  }
+
+  .date {
+    margin-top: 24px;
+    font-size: clamp(15px, 3.5vw, 20px);
+    letter-spacing: 4px;
+    color: #8b8781;
+  }
+
+  .subtitle {
+    margin-top: 48px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: clamp(23px, 5vw, 31px);
+  }
+
+  .next {
+    margin-top: 15px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #8b8781;
+  }
+
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .box {
+    background: rgba(255,255,255,.62);
+    border: 1px solid #d9d3ca;
+    border-radius: 22px;
+    padding: 18px 6px 15px;
+  }
+
+  .number {
+    font-size: clamp(32px, 7vw, 48px);
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .label {
+    margin-top: 9px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #8b8781;
+  }
+
+  .footer {
+    margin-top: 42px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: clamp(20px, 4.5vw, 28px);
+  }
+
+  .sparkle {
+    margin-top: 35px;
+    font-size: 23px;
+  }
+
+  @media (max-width: 430px) {
+    .countdown { gap: 7px; }
+    .box { border-radius: 19px; padding-top: 17px; }
+    .date { letter-spacing: 2.5px; }
+  }
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <div class="stars">✦ · ✧ · ✦</div>
+
+  <div class="aa">A A</div>
+
+  <h1>LO QUE SIGUE — DE VERDAD</h1>
+
+  <div class="date">22 · SEPTIEMBRE · 2026 · 22:45</div>
+
+  <div class="subtitle">Y esto acaba de empezar…</div>
+
+  <div class="next">PRÓXIMA PARADA: TENERIFE</div>
+
+  <div class="countdown">
+    <div class="box">
+      <div class="number" id="days">0</div>
+      <div class="label">DÍAS</div>
+    </div>
+
+    <div class="box">
+      <div class="number" id="hours">0</div>
+      <div class="label">HORAS</div>
+    </div>
+
+    <div class="box">
+      <div class="number" id="minutes">0</div>
+      <div class="label">MINUTOS</div>
+    </div>
+
+    <div class="box">
+      <div class="number" id="seconds">0</div>
+      <div class="label">SEGUNDOS</div>
+    </div>
+  </div>
+
+  <div class="footer">Hasta volver a encontrarnos. ❤️</div>
+
+  <div class="sparkle">✦</div>
+
+</main>
+
+<script>
+  // 22 de septiembre de 2026 a las 22:45, hora de Tenerife (UTC+01:00)
+  const target = new Date("2026-09-22T22:45:00+01:00").getTime();
+
+  function updateCountdown() {
+    let diff = target - Date.now();
+
+    if (diff <= 0) {
+      document.getElementById("days").textContent = "0";
+      document.getElementById("hours").textContent = "0";
+      document.getElementById("minutes").textContent = "0";
+      document.getElementById("seconds").textContent = "0";
+
+      document.querySelector(".subtitle").textContent = "YA ESTÁ. ❤️";
+      document.querySelector(".next").textContent = "PRÓXIMA PARADA: TENERIFE";
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    diff %= 86400000;
+
+    const hours = Math.floor(diff / 3600000);
+    diff %= 3600000;
+
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
